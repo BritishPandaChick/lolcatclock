@@ -4,13 +4,16 @@ $(document).ready(function(){
   var wakeuptime = 9;
   var lunchtime = 12;
   var partytime = 17;
-  var naptime = lunchtime + 2;
+  var naptime = lunchtime + 2;
+
+  //Update the clock
   var updateClock = function(){
     var time = new Date().getHours();
     var message = document.getElementById('timeEvent');
     var lolcat = document.getElementById('lolcat');
     var messageText;
-    var image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
+    var image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg"
+;
 
     if (time == partytime){
       image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat4.jpg";
@@ -30,13 +33,15 @@ $(document).ready(function(){
       messageText = "Good Night!";
     } else {
       messageText = "Good Afternoon!";
-    }
+    }
+
     console.log(messageText);
     message.innerText = messageText;
     lolcat.src = image;
     showCurrentTime();
   };
 
+  //Show the current time
   var showCurrentTime = function(){
     var clock = document.getElementById('clock');
     var currentTime = new Date();
@@ -48,26 +53,34 @@ $(document).ready(function(){
 
     if (hours >= noon){
       meridian = "PM";
-    }
+    }
+
     if (hours > noon){
       hours = hours - 12;
-    }
+    }
+
     if (minutes < 10){
       minutes = "0" + minutes;
-    }
+    }
+
     if (seconds < 10){
       seconds = "0" + seconds;
-    }
+    }
+
     var clockTime = hours + ':' + minutes + ':' + seconds + " " + meridian + "!";
     clock.innerText = clockTime;
-  };
+  };
+
   updateClock();
+
   var oneSecond = 1000;
   setInterval(updateClock, oneSecond);
   var partyTimeButton = document.getElementById("partyTimeButton");
   var napTimeSelector = document.getElementById("napTimeSelector");
   var lunchTimeSelector = document.getElementById("lunchTimeSelector");
-  var wakeUpTimeSelector = document.getElementById("wakeUpTimeSelector");
+  var wakeUpTimeSelector = document.getElementById("wakeUpTimeSelector");
+
+  //Gets party button working
   var partyEvent = function(){
     if(partytime < 0){
       partytime = new Date().getHours();
@@ -78,19 +91,24 @@ $(document).ready(function(){
       partyTimeButton.innerText = "PARTY TIME!";
       partyTimeButton.style.backgroundColor = "#222";
     }
-  };
+  };
+
   var lunchEvent = function(){
     lunchtime = lunchTimeSelector.value;
-  };
+  };
+
   var wakeUpEvent = function(){
     wakeuptime = wakeUpTimeSelector.value;
-  };
+  };
+
   var napEvent = function(hour){
     naptime = napTimeSelector.value;
-  };
+  };
+
   $("#partyTimeButton").click(partyEvent);
   $("#napTimeSelector").change(napEvent);
   $("#lunchTimeSelector").change(lunchEvent);
   $("#wakeUpTimeSelector").change(wakeUpEvent);
   partyEvent();
-});
+});
+
